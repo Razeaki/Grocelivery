@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Cart.css">
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+  <title>Grocelivery | Cart</title>
+</head>
+<body>
+<div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+        </div>
+        <div id="menu">
+            <div id="search-cart">
+                <input type="text" id="search-bar" placeholder="Search">
+                <img id="cart" src="Icons/cart.png" alt="Cart">
+            </div>
+            <div id="home-about">
+                <h3 id="home" onclick="home()">Home</h3>
+                <h3 id="logout" onclick="logout()">Log Out</h3>
+                <h3 id="about" onclick="about()">About Us</h3>
+            </div>
+        </div>
+    </header>
+</div>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
+    <!-- Cart Container -->
+    <div id="cart-container">
+        <!-- Add Cart Items dynamically using JavaScript -->
+      </div>
+<!-- Add Checkout Button -->
+<div id="chkbutton">
+<button id="checkout-button" onclick="openCheckoutPopup()">Checkout</button>
+</div>
+
+<!-- Toolkit Popup for Checkout -->
+<div id="checkout-popup" class="popup-container">
+    <div class="popup-content">
+        <span class="popup-close" onclick="closeCheckoutPopup()">&times;</span>
+        <h2>Checkout Confirmation</h2>
+        <p>Thank you for your order! Your items will be delivered shortly.</p>
+        <p>Overall Total: ₱<span id="overall-total-confirmation"></span></p>
+        <button onclick="proceedToPayment()">Proceed</button>
+    </div>
+</div>
+
+<div id="payment-popup" class="popup-container" style="display: none;">
+    <div class="popup-content">
+        <span class="popup-close" onclick="closePaymentPopup()">&times;</span>
+        <h2>Payment Status</h2>
+        <p id="payment-status">Payment Received</p>
+        <div id="rating-container">
+            <h3>Rate Your Experience</h3>
+            <div class="rating-stars" onmouseover="highlightStars(event)" onclick="rateExperience(event)" onmouseout="resetStars()">
+                <span data-rating="1">&#9733;</span>
+                <span data-rating="2">&#9733;</span>
+                <span data-rating="3">&#9733;</span>
+                <span data-rating="4">&#9733;</span>
+                <span data-rating="5">&#9733;</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+let hoveredRating = 0;
+
+function highlightStars(event) {
+    const stars = document.querySelectorAll('.rating-stars span');
+    const hoverIndex = Array.from(stars).indexOf(event.target) + 1;
+
+    // Remove previous hover styles
+    stars.forEach((star, index) => {
+        star.classList.remove('hovered');
+        if (index < hoverIndex) {
+            star.classList.add('hovered');
+        }
+    });
+
+    hoveredRating = hoverIndex;
+}
+// Function to reset stars on mouseout
+function resetStars() {
+    const stars = document.querySelectorAll('.rating-stars span');
+
+    // Remove all hover styles
+    stars.forEach(star => {
+        star.classList.remove('hovered');
+    });
+}
+
+function closeCheckoutPopup() {
+    document.getElementById('checkout-popup').style.display = 'none';
+}
+
+function openCheckoutPopup() {
+    const checkoutPopup = document.getElementById('checkout-popup');
+    checkoutPopup.style.display = 'flex';
+
+    // Display overall total in the confirmation box
+    const overallTotalConfirmation = document.getElementById('overall-total-confirmation');
+    overallTotalConfirmation.textContent = calculateOverallTotal().toFixed(2);
+}
+
+function proceedToPayment() {
+    document.getElementById('overall-total-confirmation').textContent = calculateOverallTotal();
+    closeCheckoutPopup();
+    openPaymentPopup();
+}
+
+function openPaymentPopup() {
+    document.getElementById('payment-popup').style.display = 'block';
+}
+
+function closePaymentPopup() {
+    document.getElementById('payment-popup').style.display = 'none';
+}
+
+function rateExperience(event) {
+    const stars = document.querySelectorAll('.rating-stars span');
+    const selectedRating = Array.from(stars).indexOf(event.target) + 1;
+
+    // Your existing code to handle the rating
+    alert(`You rated your experience as ${selectedRating} stars. Thank you for your feedback!`);
+
+    // Close the payment popup
+    closePaymentPopup();
+}
+
+function logout() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function() {
+    window.location.href = "login.html"
+    document.getElementById('loading-overlay').style.display = 'none';
+  }, 1300);
+}
+
+function home() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "menu.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1300);
+    }
+function about(){
+    document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "about.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1500);
+}
+
+// Get the cart array from the query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const cartString = urlParams.get('cart');
+let cart = cartString ? JSON.parse(decodeURIComponent(cartString)) : [];
+
+// Wait for the DOM to be fully loaded before executing the code
+document.addEventListener('DOMContentLoaded', function () {
+    // Call the viewCart function to display items when the page loads
+    viewCart();
+});
+
+function viewCart() {
+    console.log("Viewing Cart");
+    // Clear existing cart content
+    const cartContainer = document.getElementById('cart-container');
+    cartContainer.innerHTML = '';
+
+    // Display cart items
+    cart.forEach((item, index) => {
+        const cartItemContainer = document.createElement('div');
+        cartItemContainer.classList.add('cart-item-container');
+
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+
+        const name = document.createElement('div');
+        name.classList.add('cart-item-name');
+        name.textContent = item.name;
+
+        const quantityContainer = document.createElement('div');
+        quantityContainer.classList.add('cart-item-quantity-container');
+
+        const minusButton = document.createElement('button');
+        minusButton.textContent = '-';
+        minusButton.addEventListener('click', () => handleQuantityChange(index, -1));
+        minusButton.style.borderRadius = '5px';
+
+        const quantity = document.createElement('div');
+        quantity.classList.add('cart-item-quantity');
+        quantity.textContent = `${item.quantity || 1}`;
+
+        const plusButton = document.createElement('button');
+        plusButton.textContent = '+';
+        plusButton.addEventListener('click', () => handleQuantityChange(index, 1));
+        plusButton.style.borderRadius = '5px';
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => handleRemoveItem(index));
+        removeButton.style.borderRadius = '5px';
+
+
+        quantityContainer.appendChild(minusButton);
+        quantityContainer.appendChild(quantity);
+        quantityContainer.appendChild(plusButton);
+
+        const price = document.createElement('div');
+        price.classList.add('cart-item-price');
+        price.textContent = `₱${item.price.toFixed(2)}`;
+
+        const total = document.createElement('div');
+        total.classList.add('cart-item-total');
+        total.textContent = `Total: ₱${(item.price * (item.quantity || 1)).toFixed(2)}`;
+
+        cartItem.appendChild(name);
+        cartItem.appendChild(quantityContainer);
+        cartItem.appendChild(price);
+        cartItem.appendChild(total);
+        cartItem.appendChild(removeButton);
+
+        cartItemContainer.appendChild(cartItem);
+        cartContainer.appendChild(cartItemContainer);
+    });
+
+    // Calculate overall total
+    const overallTotal = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+
+    // Display overall total
+    const overallTotalContainer = document.createElement('div');
+    overallTotalContainer.classList.add('overall-total-container');
+    overallTotalContainer.textContent = `Overall Total: ₱${overallTotal.toFixed(2)}`;
+
+    cartContainer.appendChild(overallTotalContainer);
+}
+
+function handleQuantityChange(index, change) {
+    // Update the quantity of the item
+    cart[index].quantity = (cart[index].quantity || 1) + change;
+
+    // Save the updated cart data back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Refresh the cart view
+    viewCart();
+}
+
+function handleRemoveItem(index) {
+    // Remove the item from the cart array
+    cart.splice(index, 1);
+
+    // Save the updated cart data back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Refresh the cart view
+    viewCart();
+}
+function calculateOverallTotal() {
+    return cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+}
+
+
+</script>
+</body>
+</html>
+

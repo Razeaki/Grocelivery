@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="about.css">
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+  <title>Grocelivery | About Us</title>
+</head>
+<body>
+<div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+        </div>
+        <div id="menu">
+            <div id="search-cart">
+                <input type="text" id="search-bar" placeholder="Search">
+                <img id="cart" src="Icons/cart.png" alt="Cart" onclick="goToCart()">
+            </div>
+            <div id="home-about">
+              <h3 id="home" onclick="home()">Home</h3>
+              <h3 id="logout" onclick="logout()">Log Out</h3>
+              <h3 id="about" onclick="about()">About Us</h3>
+          </div>
+        </div>
+    </header>
+</div>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
+  <div id="grocelivery">
+    <h1 class="about">What is Grocelivery?</h1>
+    <p>Grocelivery is a grocery delivery service website created by UniFlex to help alleviate stress from families and help them manage their time better by not worrying about the need to go out physically just to purchase their daily needs. The necessities of a family are a must for them to press on with their lives; But with the problem of having less time due to their need to attend to their children most of the time as well as other important matters that they must attend to, purchasing groceries physically can prove to be one of the main worries of parents or guardians nowadays.</p>
+  </div>
+
+  <div id="border"></div>
+  <div id="mission">
+    <h1 class="miss">Uniflex's Mission</h1>
+    <p>UniFlex is a company that aims to simplify and enhance the grocery shopping experience for customers. The company strives to provide a wide selection of high-quality and fresh groceries at competitive prices for busy professionals, senior citizens, and parents with fast and reliable delivery at their doorstep.</p>
+  </div>
+  <div id="vision">
+    <h1 class="viss">Uniflex's Vision</h1>
+    <p>The company's vision is to revolutionize how people purchase their groceries by providing a seamless, convenient, and sustainable grocery delivery service online.</p>
+  </div>
+
+  <div id="border1"></div>
+
+  <div id="org">
+    <h1>Organizational Chart</h1>
+    <img id="chart" src="Icons/chart.png">
+  </div>
+
+<script>
+function logout() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function() {
+    window.location.href = "login.html"
+    document.getElementById('loading-overlay').style.display = 'none';
+  }, 1300);
+}
+function home() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function () {
+    window.location.href = "menu.html"
+    document.getElementById('loading-overlay').style.display = 'none';
+  }, 1600);
+}
+
+function about() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function() {
+      window.location.href = "about.html"
+      document.getElementById('loading-overlay').style.display = 'none';
+  }, 1500);
+}
+
+  </script>

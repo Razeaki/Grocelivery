@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vegetables.css">
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+  <title>Grocelivery | Vegetables</title>
+</head>
+<body>
+<div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+        </div>
+        <div id="menu">
+            <div id="search-cart">
+                <input type="text" id="search-bar" placeholder="Search">
+                <img id="cart" src="Icons/cart.png" alt="Cart" onclick="goToCart()">
+            </div>
+            <div id="home-about">
+              <h3 id="home" onclick="home()">Home</h3>
+              <h3 id="logout" onclick="logout()">Log Out</h3>
+              <h3 id="about" onclick="about()">About Us</h3>
+          </div>
+        </div>
+    </header>
+</div>
+
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+  
+  <div id="products-container">
+    <!-- Product 1 -->
+    <div class="product" onclick="viewProduct('Carrot', 50.49)">
+      <img src="Icons/Carrots.jpeg" alt="Carrot">
+      <div class="product-name">Carrot</div>
+      <div class="product-price">₱50.49/kilo</div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product" onclick="viewProduct('Broccoli', 35.00)">
+      <img src="Icons/Brocolli.jpeg" alt="Broccoli">
+      <div class="product-name">Broccoli</div>
+      <div class="product-price">₱35.00/kilo</div>
+    </div>
+
+    <div class="product" onclick="viewProduct('Cabbage', 60.25)">
+        <img src="Icons/Cabbage.jpeg" alt="Broccoli">
+        <div class="product-name">Cabbage</div>
+        <div class="product-price">₱60.25/kilo</div>
+      </div>
+
+      <div class="product" onclick="viewProduct('Eggplant', 58.99)">
+        <img src="Icons/Eggplant.jpeg" alt="Broccoli">
+        <div class="product-name">Eggplant</div>
+        <div class="product-price">₱58.99/kilo</div>
+      </div>
+
+      <div class="product" onclick="viewProduct('Kale', 45.40)">
+        <img src="Icons/Kale.jpeg" alt="Broccoli">
+        <div class="product-name">Kale</div>
+        <div class="product-price">₱45.40/kilo</div>
+      </div>
+
+      <div class="product" onclick="viewProduct('Cauliflower', 49.23)">
+        <img src="Icons/Cauliflower.jpeg" alt="Broccoli">
+        <div class="product-name">Cauliflower</div>
+        <div class="product-price">₱49.23/kilo</div>
+      </div>
+
+    <!-- Add more products as needed -->
+  </div>
+
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+  <script>
+    // Initialize an empty cart array
+    let cart = [];
+
+  function logout() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+      setTimeout(function() {
+          window.location.href = "login.html"
+          document.getElementById('loading-overlay').style.display = 'none';
+  }, 1300);
+}
+function home() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function () {
+    window.location.href = "menu.html"
+    document.getElementById('loading-overlay').style.display = 'none';
+  }, 1600);
+}
+
+function about() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "about.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1500);
+    }
+
+function viewProduct(name, price, imagePath) {
+  // Show confirmation pop-up with image
+  const isConfirmed = confirm(`Do you want to add ${name} to the cart?\nPrice: ₱${price}/kilo`);
+
+  // If user confirms, add item to the cart
+  if (isConfirmed) {
+    addToCart(name, price, imagePath);
+  }
+}
+
+// Function to add a product to the cart
+function addToCart(name, price, imagePath) {
+  const selectedProduct = { name, price, imagePath };  // Include imagePath
+  cart.push(selectedProduct);
+  alert(`${selectedProduct.name} added to the cart!`);
+}
+
+// Renamed the cart function to goToCart
+function goToCart() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  setTimeout(function () {
+    const cartString = JSON.stringify(cart);
+    window.location.href = `Cart.html?cart=${encodeURIComponent(cartString)}`;
+    document.getElementById('loading-overlay').style.display = 'none';
+  }, 1500);
+}
+
+
+  
+</script>
+</body>
+</html>

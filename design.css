@@ -1,0 +1,142 @@
+/* login design */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: url('Icons/background.png') center/cover no-repeat;
+  }
+
+  header {
+    background-color: #FF0000;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #logo {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+  }
+
+  #logo-container {
+    display: flex;
+    align-items: center;
+  }
+ 
+  #product {
+    margin: 0;
+  }
+
+  #about {
+      margin: 10px;
+      cursor: pointer;
+  }
+
+  #about:hover {
+    color:#159600;
+    font-weight: bold;
+  }
+
+  #top-bar {
+    background-color: #FF0000; 
+    height: 30px;
+  }
+
+  #login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin-top: 10vh;
+  }
+
+  #login-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  #login-box input {
+    width: 100%;
+    padding: 10px;
+    max-width: 300px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .marginpls{
+      margin-right: 5px;
+  }
+
+  #account-container {
+      display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  #create-account {
+    color: #FF0000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-right: 10px;
+  }
+
+  #create-account:hover {
+    color: #159600;
+  }
+
+  #login-button {
+    background-color: #159600;
+    color: white;
+    width: 30%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #login-button:hover {
+    background-color: #218838;
+  }
+
+  #loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #loading-spinner {
+    border: 8px solid #FF0000;
+    border-top: 8px solid #159600;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

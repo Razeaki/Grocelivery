@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="design.css">
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+  <title>Grocelivery | Login Page</title>
+</head>
+<body>
+
+  <div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+          </div>
+        <h3 id="about">ABOUT US</h3>
+    </header>
+  </div>
+
+  <div id="login-container">
+    <div id="login-box">
+      <h2>LOGIN</h2>
+      <hr style="width: 100%; margin-bottom: 30px;">
+      <input type="text" id="login-username" placeholder="Enter Username">
+      <input type="password" id="login-password" placeholder="Enter Password">
+      <div id="account-container">
+        <p class="marginpls">Dont have an account? </p>
+        <p id="create-account" onclick="redirectToCreateAccount()">Create an account here</p>
+      </div>
+      <button id="login-button" onclick="login()">Log In</button>
+    </div>
+  </div>
+
+  <div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
+  <script>
+      function redirectToCreateAccount() {
+    // Show loading overlay
+    document.getElementById('loading-overlay').style.display = 'flex';
+
+    // Simulate a delay (you can remove this in a real scenario)
+    setTimeout(function() {
+      
+      window.location.href = "signup.html";
+
+      // Hide loading overlay after redirecting
+      document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000); // Adjust the delay time as needed
+  }
+
+    function login() {
+      // Get login data
+      const loginUsername = document.getElementById("login-username").value;
+      const loginPassword = document.getElementById("login-password").value;
+
+      // Retrieve signup data from sessionStorage
+      const signupUsername = sessionStorage.getItem("username");
+      const signupPassword = sessionStorage.getItem("password");
+
+      // Validate login credentials
+      if (loginUsername === signupUsername && loginPassword === signupPassword) {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+        window.location.href = "menu.html";
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 2000);
+      } else {
+        alert("Invalid login credentials. Please try again.");
+      }
+
+
+
+    }
+  </script>
+
+</body>
+</html>

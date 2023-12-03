@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+  <title>Grocelivery | Main Menu</title>
+</head>
+<body>
+
+<div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+        </div>
+        <div id="menu">
+            <div id="search-cart">
+                <input type="text" id="search-bar" placeholder="Search" oninput="handleSearch()">
+                <img id="cart" src="Icons/cart.png" alt="Cart" onmouseover="showCartTooltip()" onmouseout="hideCartTooltip()" onclick="cart()">
+                <div id="cart-tooltip">
+                    <!-- Add your items here -->
+                    Item 1<br>
+                    Item 2<br>
+                    Item 3
+                </div>
+            </div>
+            <div id="home-about">
+                <h3 id="home" onclick="home()">Home</h3>
+                <h3 id="logout" onclick="logout()">Log Out</h3>
+                <h3 id="about" onclick="about()">About Us</h3>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div id="content">
+<!-- Large Picture -->
+<div id="large-picture-container">
+    <img id="large-picture" src="Icons/Intro.png" alt="Large Picture" >
+</div>
+ <!-- Small Pictures -->
+ <div id="smol">
+    <div class="small-picture">
+        <img src="Icons/Vegetables.jpeg" alt="Small Picture 1" onclick="Vegetable()">
+        <div class="picture-name">Vegetables</div>
+    </div>
+    <div class="small-picture">
+        <img src="Icons/Fruit.jpeg" alt="Small Picture 2" onclick="Fruit()">
+        <div class="picture-name">Fruit</div>
+    </div>
+    <div class="small-picture">
+        <img src="Icons/Meat.jpeg" alt="Small Picture 3" onclick="Meat()">
+        <div class="picture-name">Meat</div>
+    </div>
+    <div class="small-picture">
+        <img src="Icons/Condiments.jpeg" alt="Small Picture 4"onclick="Condiments()"> 
+        <div class="picture-name">Condiments</div>
+    </div>
+<!-- Add more small pictures as needed -->
+</div>
+</div>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
+<script>
+    function Vegetable() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+        window.location.href = "vegetables.html";
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+    }    
+    function Fruit() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+        window.location.href = "fruits.html";
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+    }
+    function Meat() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+        window.location.href = "meats.html";
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+    }
+    function Condiments() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+        window.location.href = "condiments.html";
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+    }
+
+    function showCartTooltip() {
+    document.getElementById('cart-tooltip').style.display = 'block';
+  }
+
+  function hideCartTooltip() {
+    document.getElementById('cart-tooltip').style.display = 'none';
+  }
+
+  function logout() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "login.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1300);
+    }
+  function home() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "menu.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1300);
+    }
+  function about() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "about.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1500);
+    }
+
+    function cart() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        setTimeout(function() {
+            window.location.href = "Cart.html"
+            document.getElementById('loading-overlay').style.display = 'none';
+    }, 1500);
+    }
+
+</script>
+</body>
+</html>

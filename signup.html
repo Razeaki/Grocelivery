@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="signup.css">
+  <title>Grocelivery | Signup Page</title>
+  <link rel="icon" type="image/x-icon" href="Icons/HeaderIcon.png">
+</head>
+<body>
+
+  <div id="top-bar">
+    <header>
+        <div id="logo-container">
+            <img id="logo" src="Icons/GroceliveryLogo.png" alt="Logo">
+            <h3 id="product">GROCELIVERY</h3>
+          </div>
+        <h3 id="about">ABOUT US</h3>
+    </header>
+  </div>
+
+  <div id="signup-container">
+    <div id="signup-box">
+      <h2>SIGN UP</h2>
+      <hr style="width: 100%; margin-bottom: 30px;">
+      <input type="text" id="signup-username" placeholder="Enter Username">
+      <input type="text" id="signup-email" placeholder="Enter Email">
+      <input type="password" id="signup-password" placeholder="Enter Password">
+      <input type="password" id="signup-confirm-password" placeholder="Confirm Password">
+      <button id="signup-button" onclick="signup()">Sign Up</button>
+      <div id="login-container">
+        <p class="marginpls">Already have an account? </p>
+        <p id="login-account" onclick="redirectToLogin()">Login here</p>
+      </div>
+      
+    </div>
+  </div>
+
+  <div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
+  <script>
+    function redirectToLogin() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+      setTimeout(function() {
+      window.location.href = "login.html";
+      // Hide loading overlay after redirecting
+      document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+      
+    }
+
+    function signup() {
+      // Get signup data
+      const username = document.getElementById("signup-username").value;
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+      // Validate input (you can add more validation as needed)
+      if (!username || !email || !password || !confirmPassword) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      // Store signup data in sessionStorage (temporary storage)
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("password", password);
+      
+    alert("Signing up...");
+
+    document.getElementById('loading-overlay').style.display = 'flex';
+      setTimeout(function() {
+      redirectToLogin();
+      document.getElementById('loading-overlay').style.display = 'none';
+    }, 1000);
+    }
+  </script>
+
+</body>
+</html>
